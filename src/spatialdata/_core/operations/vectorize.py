@@ -264,7 +264,7 @@ def _(gdf: GeoDataFrame, buffer_resolution: int = 16) -> GeoDataFrame:
         ShapesModel.validate_shapes_not_mixed_types(gdf)
         if isinstance(gdf.geometry.iloc[0], Point):
             buffered_df = gdf.copy()
-            buffered_df["geometry"] = buffered_df.apply(
+            buffered_df["geometry"] = buffered_df.dropna().apply(
                 lambda row: row.geometry.buffer(row[ShapesModel.RADIUS_KEY], resolution=buffer_resolution), axis=1
             )
 
